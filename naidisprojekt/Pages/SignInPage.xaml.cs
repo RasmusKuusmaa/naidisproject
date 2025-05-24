@@ -9,8 +9,11 @@ public partial class SignInPage : ContentPage
 		InitializeComponent();
 	}
 
-    private async void SignInBtn_Clicked(object sender, EventArgs e)
+    private void SignInBtn_Clicked(object sender, EventArgs e)
     {
-		Application.Current.MainPage = new AppShell();
+        if (Application.Current?.Windows.Count > 0)
+        {
+            Application.Current.Windows[0].Page = new AppShell();
+        }
     }
 }
