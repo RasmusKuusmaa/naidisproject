@@ -3,18 +3,42 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="naidisprojekt.Pages.SplashPage"
              Title="SplashPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Margin="40,0">
+        <Image Source="splashimage.png"
+               Margin="0,150,0,50"
+            />
+        <Label HorizontalOptions="Center" 
+               HorizontalTextAlignment="Center"
+               FontSize="40"
+               TextColor="#303030">
+            <Label.FormattedText>
+                <FormattedString>
+                    <Span Text="You'll find&#x0a;"/>
+                    <Span Text="All you need &#x0a;" TextColor="#FCA34D"
+                          TextDecorations="Underline"/>
+                    <Span Text="Here!&#x0a;"/>
+                </FormattedString>
+            </Label.FormattedText>
+        </Label>
+        
+      
+        <Button Text="Sign Up"
+                Margin="0, 40,0,0"
+                HeightRequest="60"
+                BackgroundColor="#4F63AC"
+                FontSize="16"
+                FontAttributes="Bold"
+                x:Name="SignUpBtn" Clicked="SignUpBtn_Clicked"/>
 
         <Button Text="Sign in"
+                FontSize="16"
+                FontAttributes="Bold"
                 Margin="0,20,0,0"
+                HeightRequest="60"
+                TextColor="#4F63AC"
+                BackgroundColor="Transparent"
+                
                 x:Name="signinbtn" Clicked="signinbtn_Clicked"/>
-        <Button Text="Sign Up"
-                Margin="0, 20,0,0"
-                x:Name="SignUpBtn" Clicked="SignUpBtn_Clicked"/>
-        
+
     </VerticalStackLayout>
 </ContentPage>

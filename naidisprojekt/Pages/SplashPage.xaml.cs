@@ -7,7 +7,9 @@ public partial class SplashPage : ContentPage
 	public SplashPage()
 	{
 		InitializeComponent();
-	}
+        NavigationPage.SetHasNavigationBar(this, false);
+
+    }
 
     private async void signinbtn_Clicked(object sender, EventArgs e)
     {
