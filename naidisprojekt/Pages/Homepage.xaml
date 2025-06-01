@@ -2,11 +2,60 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="naidisprojekt.Pages.Homepage"
-             Title="Homepage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to homepage"
+             Shell.NavBarIsVisible="False"
+             x:Name="Page"
+>
+    <VerticalStackLayout Margin="20">
+        <Grid ColumnDefinitions="Auto, *"
+      VerticalOptions="Center"
+              Margin="0,0,0,40">
+
+            <Image Source="searchicon.png"
+           WidthRequest="16"
+           HeightRequest="16"
+           VerticalOptions="Center"
+           Margin="8,0"/>
+
+            <Label 
+            Text="Find All You Need"
+            FontSize="16"
+            FontAttributes="Bold"
+            Grid.Column="1"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+        </Grid>
+        <CollectionView
+    ItemsSource="{Binding Categories}"
+    SelectedItem="{Binding SelectedCategory}"
+    SelectionMode="Single"
+            >
+
+            <CollectionView.ItemsLayout>
+                <LinearItemsLayout Orientation="Horizontal" ItemSpacing="25" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <Frame 
+            HeightRequest="44"
+            WidthRequest="44"
+            BackgroundColor="{Binding BackgroundColor}"
+            CornerRadius="8"
+            Padding="16">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectCategoryCommand, Source={x:Reference Name=Page}}" CommandParameter="{Binding}" />
+                        </Frame.GestureRecognizers>
+                        <Image 
+                Source="{Binding imageSource}"
+                HeightRequest="44"
+                WidthRequest="44"
+                            />
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+
+
+
     </VerticalStackLayout>
 </ContentPage>

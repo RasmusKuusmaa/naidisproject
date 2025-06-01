@@ -1,6 +1,7 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using naidisprojekt.Pages;
+using Microsoft.Maui.Handlers; 
 
 namespace naidisprojekt
 {
@@ -8,12 +9,23 @@ namespace naidisprojekt
     {
         public App()
         {
+            #if ANDROID
+                    EntryHandler.Mapper.AppendToMapping("NoUnderline", (handler, view) =>
+                    {
+                        handler.PlatformView.Background = null;
+                    });
+            #endif
             InitializeComponent();
         }
 
         protected override Window CreateWindow(IActivationState? activationState)
         {
-            return new Window(new NavigationPage(new SplashPage()));
+            return new Window(new NavigationPage(new SplashPage())
+            {
+                BarTextColor = Color.FromArgb("#4F63AC")
+                
+               
+            });
         }
 
         public void NavigateToMainApp()
