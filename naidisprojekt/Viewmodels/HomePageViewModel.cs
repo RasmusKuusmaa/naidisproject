@@ -14,9 +14,40 @@ namespace naidisprojekt.Viewmodels
     public class HomePageViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Category> Categories { get; set; }
+        public ObservableCollection<Product> Products { get; set; }
+        
         public ICommand SelectCategoryCommand { get; }
 
-        public HomePageViewModel() { 
+        public HomePageViewModel() {
+            Products = new ObservableCollection<Product>
+            {
+                new Product {Id = 1, Name = "Black Simple Lamp", ImageSource = "minimallamp.png",
+                 Price=12},
+
+                new Product {Id = 2,
+                Name = "Minimal Stand", ImageSource="minimalstand.png",Price=25},
+                new Product
+                {
+                    Id = 3,
+                    Name = "Coffee Chair",
+                    ImageSource="coffechair.png",
+                    Price=20
+                },
+                new Product
+                {
+                    Id = 4,
+                    Name = "Simple Desk",
+                    ImageSource = "minimaldesk.png",
+                    Price=50
+                },
+                new Product
+                {
+                    Id = 5,
+                    Name = "Coffee Table",
+                    ImageSource = "coffetable.png",
+                    Price =50
+                }
+            };
             Categories = new ObservableCollection<Category>
             {
                         new Category { Id = 1, imageSource = "star.png"},
