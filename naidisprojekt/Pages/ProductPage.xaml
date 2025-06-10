@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="naidisprojekt.Pages.ProductPage">
+    <VerticalStackLayout Padding="20" Spacing="20">
+        <Image x:Name="ProductImage"
+               HeightRequest="280"
+               WidthRequest="157"
+               HorizontalOptions="Center" />
+        <Label x:Name="ProductName"
+               FontAttributes="Bold"
+               FontSize="24"
+               HorizontalOptions="Center" />
+        <Label x:Name="ProductPrice"
+               FontSize="18"
+               HorizontalOptions="Center" />
+    </VerticalStackLayout>
+</ContentPage>

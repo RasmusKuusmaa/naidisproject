@@ -13,12 +13,14 @@ namespace naidisprojekt.Viewmodels
 {
     public class HomePageViewModel : INotifyPropertyChanged
     {
+        public ICommand SelectProductCommand { get; }
         public ObservableCollection<Category> Categories { get; set; }
         public ObservableCollection<Product> Products { get; set; }
         
         public ICommand SelectCategoryCommand { get; }
 
         public HomePageViewModel() {
+
             Products = new ObservableCollection<Product>
             {
                 new Product {Id = 1, Name = "Black Simple Lamp", ImageSource = "minimallamp.png",
@@ -60,6 +62,9 @@ namespace naidisprojekt.Viewmodels
             };
             SelectCategoryCommand = new Command<Category>(category => SelectedCategory = category);
             SelectedCategory = Categories[0];
+
+
+            SelectProductCommand = new Command<Product>(OnProductSelected);
         }
 
         private Category selectedCategory;
@@ -76,7 +81,13 @@ namespace naidisprojekt.Viewmodels
                 }
             }
         }
-        
+        private async void OnProductSelected(Product selectedProduct)
+        {
+            if (selectedProduct == null)
+                return;
+
+            await Shell.Current.GoToAsync($"productpage?productId={selectedProduct.Id}");
+        }
 
         private void UpdateSelection(Category selected)
         {

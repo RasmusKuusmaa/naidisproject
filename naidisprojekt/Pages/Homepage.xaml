@@ -56,26 +56,32 @@
         </CollectionView>
 
         <CollectionView
-            Margin="0,20,0,0"
-            ItemsSource="{Binding Products}">
+    Margin="0,20,0,0"
+    ItemsSource="{Binding Products}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2"
-                                 HorizontalItemSpacing="20"
-                                 VerticalItemSpacing="20"/>
+                         HorizontalItemSpacing="20"
+                         VerticalItemSpacing="20"/>
             </CollectionView.ItemsLayout>
-                <CollectionView.ItemTemplate>
+            <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <VerticalStackLayout>
+                        <VerticalStackLayout.GestureRecognizers>
+                            <TapGestureRecognizer
+                        Command="{Binding BindingContext.SelectProductCommand, Source={x:Reference Name=Page}}"
+                        CommandParameter="{Binding .}" />
+                        </VerticalStackLayout.GestureRecognizers>
                         <Image Source="{Binding ImageSource}" 
-                             
-                               HeightRequest="280"
-                               WidthRequest="157"/>
+                       HeightRequest="280"
+                       WidthRequest="157"/>
                         <Label Padding="10,0" Text="{Binding Name}"/>
                         <Label Padding="10,0" Text="{Binding Price, StringFormat='${0:F2}'}"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+
 
 
 

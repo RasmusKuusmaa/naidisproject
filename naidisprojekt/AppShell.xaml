@@ -18,6 +18,10 @@
         <ShellContent Title="Profile"
                       ContentTemplate="{DataTemplate Pages:ProfilePage}"
                       />
+        
+        
 
     </TabBar>
+    
+    
 </Shell>
