@@ -1,4 +1,5 @@
 ﻿using naidisprojekt.Models;
+using naidisprojekt.Pages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -86,7 +87,9 @@ namespace naidisprojekt.Viewmodels
             if (selectedProduct == null)
                 return;
 
-            await Shell.Current.GoToAsync($"productpage?productId={selectedProduct.Id}");
+            var productPage = new ProductPage();
+            productPage.ProductId = selectedProduct.Id;
+            Application.Current.MainPage = productPage;
         }
 
         private void UpdateSelection(Category selected)
