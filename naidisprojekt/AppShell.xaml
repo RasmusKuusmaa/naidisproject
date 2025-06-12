@@ -4,19 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     
     xmlns:Pages="clr-namespace:naidisprojekt.Pages"
-    x:Class="naidisprojekt.AppShell">
+    x:Class="naidisprojekt.AppShell"
+    Shell.TabBarBackgroundColor="White"
+    Shell.TabBarForegroundColor="DarkBlue"
+    Shell.TabBarUnselectedColor="LightGray">
 
-    <!-- Content here -->
     <TabBar>
-        <ShellContent Title="Home"
+        <ShellContent Icon="homepageiconselected.png"
                       ContentTemplate="{DataTemplate Pages:Homepage}"
                       Route="home"/>
-        <ShellContent Title="Favorites"
+        <ShellContent Icon="favoritenotselected.png"
                       ContentTemplate="{DataTemplate Pages:FavoritesPage}"
                       Route="profile"
                       />
-        <ShellContent Title="Profile"
+        <ShellContent Icon="profileiconnotselected.png"
                       ContentTemplate="{DataTemplate Pages:ProfilePage}"
+                      
                       />
 
 
