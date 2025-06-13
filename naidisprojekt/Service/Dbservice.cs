@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -40,6 +41,30 @@ namespace naidisprojekt.Service
             }
 
             return products;
+        }
+
+        public async Task<bool> ValidateUserAsync(string username, string password)
+        {
+            try
+            {
+
+            using var connection = new MySqlConnection(connectionString);
+            await connection.OpenAsync();
+            string query = "select count(*) from users where username = @username and Pass = @password;";
+            using (var command = new MySqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("username", username);
+                command.Parameters.AddWithValue("password", password);
+
+                var result = (long)await command.ExecuteScalarAsync();
+                return result > 0;
+            }
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+
         }
 
     }

@@ -1,19 +1,33 @@
+using naidisprojekt.Service;
 using System.Threading.Tasks;
 
 namespace naidisprojekt.Pages;
 
 public partial class SignInPage : ContentPage
 {
-	public SignInPage()
+    private readonly Dbservice dbservice = new Dbservice();
+    public SignInPage()
 	{
 		InitializeComponent();
-	}
+ 	}
 
-    private void SignInBtn_Clicked(object sender, EventArgs e)
+    private async void SignInBtn_Clicked(object sender, EventArgs e)
     {
-        if (Application.Current?.Windows.Count > 0)
+        string username = StyledEntry.Text; 
+        string password = PasswordEntry.Text; 
+
+        bool isValid = await dbservice.ValidateUserAsync(username, password);
+
+        if (isValid)
         {
-            Application.Current.Windows[0].Page = new AppShell();
+            if (Application.Current?.Windows.Count > 0)
+            {
+                Application.Current.Windows[0].Page = new AppShell();
+            }
+        }
+        else
+        {
+            await Application.Current.MainPage.DisplayAlert("Login Failed", "Invalid username or password", "OK");
         }
     }
 }
