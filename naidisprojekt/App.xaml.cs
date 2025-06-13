@@ -1,7 +1,8 @@
 ﻿using Microsoft.Maui;
 using Microsoft.Maui.Controls;
 using naidisprojekt.Pages;
-using Microsoft.Maui.Handlers; 
+using Microsoft.Maui.Handlers;
+using naidisprojekt.Models;
 
 namespace naidisprojekt
 {
@@ -21,13 +22,14 @@ namespace naidisprojekt
         protected override Window CreateWindow(IActivationState? activationState)
         {
 
-            return new Window(new NavigationPage(new SplashPage())
-            {
-                BarTextColor = Color.FromArgb("#4F63AC")
+            //return new Window(new NavigationPage(new SplashPage())
+            //{
+            //    BarTextColor = Color.FromArgb("#4F63AC")
 
 
-            });
-           // return new Window(new AppShell());
+            //});
+            UserSession.Instance.SetUserId(1);
+            return new Window(new AppShell());
         }
 
         public void NavigateToMainApp()

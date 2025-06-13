@@ -1,3 +1,4 @@
+using naidisprojekt.Models;
 using naidisprojekt.Service;
 using System.Threading.Tasks;
 
@@ -13,13 +14,15 @@ public partial class SignInPage : ContentPage
 
     private async void SignInBtn_Clicked(object sender, EventArgs e)
     {
-        string username = StyledEntry.Text; 
-        string password = PasswordEntry.Text; 
+        string username = StyledEntry.Text;
+        string password = PasswordEntry.Text;
 
-        bool isValid = await dbservice.ValidateUserAsync(username, password);
+        int? userId = await dbservice.GetUserIdAsync(username, password);
 
-        if (isValid)
+        if (userId.HasValue)
         {
+            UserSession.Instance.SetUserId(userId.Value);
+
             if (Application.Current?.Windows.Count > 0)
             {
                 Application.Current.Windows[0].Page = new AppShell();
@@ -30,4 +33,5 @@ public partial class SignInPage : ContentPage
             await Application.Current.MainPage.DisplayAlert("Login Failed", "Invalid username or password", "OK");
         }
     }
+
 }

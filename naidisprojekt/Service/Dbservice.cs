@@ -43,28 +43,52 @@ namespace naidisprojekt.Service
             return products;
         }
 
-        public async Task<bool> ValidateUserAsync(string username, string password)
+        public async Task<int?> GetUserIdAsync(string username, string password)
         {
-            try
+            using (var connection = new MySqlConnection(connectionString))
             {
+                await connection.OpenAsync();
 
-            using var connection = new MySqlConnection(connectionString);
-            await connection.OpenAsync();
-            string query = "select count(*) from users where username = @username and Pass = @password;";
-            using (var command = new MySqlCommand(query, connection))
+                string query = "SELECT id FROM users WHERE username = @username AND Pass = @password";
+
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@username", username);
+                    command.Parameters.AddWithValue("@password", password); 
+
+                    var result = await command.ExecuteScalarAsync();
+                    return result != null ? Convert.ToInt32(result) : (int?)null;
+                }
+            }
+        }
+
+        public async Task<User?> GetUserByIdAsync(int userId)
+        {
+            using (var connection = new MySqlConnection(connectionString))
             {
-                command.Parameters.AddWithValue("username", username);
-                command.Parameters.AddWithValue("password", password);
+                await connection.OpenAsync();
 
-                var result = (long)await command.ExecuteScalarAsync();
-                return result > 0;
-            }
-            }
-            catch (Exception ex)
-            {
-                return false;
+                string query = "SELECT id, username FROM users WHERE id = @id";
+
+                using (var command = new MySqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@id", userId);
+
+                    using (var reader = await command.ExecuteReaderAsync())
+                    {
+                        if (await reader.ReadAsync())
+                        {
+                            return new User
+                            {
+                                Id = reader.GetInt32(0),
+                                Name = reader.GetString(1)
+                            };
+                        }
+                    }
+                }
             }
 
+            return null;
         }
 
     }

@@ -5,8 +5,8 @@
              Title="ProfilePage">
     <VerticalStackLayout>
         <Label 
-            Text="Welcome to ProfilePage"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    Text="{Binding WelcomeText}" 
+    VerticalOptions="Center" 
+    HorizontalOptions="Center" />
     </VerticalStackLayout>
 </ContentPage>
