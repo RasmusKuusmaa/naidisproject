@@ -19,3 +19,4 @@ public partial class ProfilePage : ContentPage
         await viewModel.LoadUserAsync();
     }
 }
+ 

@@ -16,8 +16,9 @@ public partial class SplashPage : ContentPage
         await Navigation.PushAsync(new SignInPage());
     }
 
-    private void SignUpBtn_Clicked(object sender, EventArgs e)
+    private async void SignUpBtn_Clicked(object sender, EventArgs e)
     {
+        await Navigation.PushAsync(new RegisterPage());
 
     }
 }
