@@ -5,7 +5,7 @@ namespace naidisprojekt.Pages;
 public partial class RegisterPage : ContentPage
 {
     
-    private readonly Dbservice dbservice = new Dbservice();
+    private readonly ApiService apiService = new ApiService();
     public RegisterPage()
 	{
 		InitializeComponent();
@@ -15,10 +15,18 @@ public partial class RegisterPage : ContentPage
     private async void RegisterButton_Clicked(object sender, EventArgs e)
     {
 
-        await dbservice.RegisterUserAsync(Emailtxtbox.Text,StyledEntry.Text, PasswordEntry.Text);
-        await DisplayAlert("Registered", "User has been registered. Please log in.", "OK");
+        var res = await apiService.RegisterAnUser(StyledEntry.Text, Emailtxtbox.Text, PasswordEntry.Text);
+        if (res)
+        {
 
-        await Navigation.PushAsync(new SignInPage());
+            await DisplayAlert("Registered", "User has been registered. Please log in.", "OK");
+            await Navigation.PushAsync(new SignInPage());
+        }
+        else
+        {
+            await DisplayAlert("Registered", "User has not been registered. something went wrong", "OK");
+
+        }
 
 
     }

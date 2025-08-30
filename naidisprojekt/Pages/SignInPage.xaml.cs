@@ -6,7 +6,7 @@ namespace naidisprojekt.Pages;
 
 public partial class SignInPage : ContentPage
 {
-    private readonly Dbservice dbservice = new Dbservice();
+    private readonly ApiService apiService = new ApiService();
     public SignInPage()
 	{
 		InitializeComponent();
@@ -17,11 +17,9 @@ public partial class SignInPage : ContentPage
         string username = StyledEntry.Text;
         string password = PasswordEntry.Text;
 
-        int? userId = await dbservice.GetUserIdAsync(username, password);
-
-        if (userId.HasValue)
+        var response = await apiService.Login(password, password);
+        if (response == true)
         {
-            UserSession.Instance.SetUserId(userId.Value);
 
             if (Application.Current?.Windows.Count > 0)
             {

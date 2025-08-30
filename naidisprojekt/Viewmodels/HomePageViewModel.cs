@@ -17,14 +17,14 @@ namespace naidisprojekt.Viewmodels
         public ObservableCollection<Category> Categories { get; set; }
         public ObservableCollection<Product> Products { get; set; }
         private List<Product> allProducts;
-        private readonly Dbservice dbservice = new Dbservice();
+       //private readonly Dbservice dbservice = new Dbservice();
 
         public ICommand SelectCategoryCommand { get; }
 
         public HomePageViewModel()
         {
             Products = new ObservableCollection<Product>();
-            LoadProductsAsync();
+            //LoadProductsAsync();
 
             Categories = new ObservableCollection<Category>
             {
@@ -42,11 +42,11 @@ namespace naidisprojekt.Viewmodels
             SelectProductCommand = new Command<Product>(OnProductSelected);
         }
 
-        private async void LoadProductsAsync()
-        {
-            allProducts = await dbservice.GetAllProductsAsync();
-            UpdateProductsForSelectedCategory();
-        }
+        //private async void LoadProductsAsync()
+        //{
+        //    allProducts = await dbservice.GetAllProductsAsync();
+        //    UpdateProductsForSelectedCategory();
+        //}
 
         private void UpdateProductsForSelectedCategory()
         {

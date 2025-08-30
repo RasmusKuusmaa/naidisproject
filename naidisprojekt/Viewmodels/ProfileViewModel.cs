@@ -23,20 +23,20 @@ namespace naidisprojekt.ViewModels
         protected void OnPropertyChanged([CallerMemberName] string name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        public async Task LoadUserAsync()
-        {
-            int? userId = UserSession.Instance.UserId;
+        //public async Task LoadUserAsync()
+        //{
+        //    int? userId = UserSession.Instance.UserId;
 
-            if (userId.HasValue)
-            {
-                Dbservice db = new Dbservice();
-                var user = await db.GetUserByIdAsync(userId.Value);
-                WelcomeText = $"Welcome {user.Name}";
-            }
-            else
-            {
-                WelcomeText = "Welcome guest";
-            }
-        }
+        //    if (userId.HasValue)
+        //    {
+        //        Dbservice db = new Dbservice();
+        //        var user = await db.GetUserByIdAsync(userId.Value);
+        //        WelcomeText = $"Welcome {user.Name}";
+        //    }
+        //    else
+        //    {
+        //        WelcomeText = "Welcome guest";
+        //    }
+        //}
     }
 }
