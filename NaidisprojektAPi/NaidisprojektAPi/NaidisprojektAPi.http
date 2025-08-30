@@ -1,0 +1,68 @@
+@NaidisprojektAPi_HostAddress = http://localhost:5999/api
+
+
+###
+POST {{NaidisprojektAPi_HostAddress}}/user/register
+content-type: application/json
+accept: application/json 
+{
+  "Name": "test",
+  "Email": "test@gmail.com",
+  "Password": "qwerty"
+}
+
+###
+
+POST {{NaidisprojektAPi_HostAddress}}/user/login
+Content-Type: application/json
+accept: application/json
+{
+  "Email": "test@gmail.com",
+  "Password": "qwerty"
+}
+
+###
+ 
+GET {{NaidisprojektAPi_HostAddress}}/user/listings
+accept: application/json
+
+###
+GET {{NaidisprojektAPi_HostAddress}}/user/categories
+accept: application/json
+
+###
+POST {{NaidisprojektAPi_HostAddress}}/user/listings/new
+Content-Type: application/json
+accept: application/json
+{
+  "Price": "21",
+  "ListingName": "Test",
+  "ListingDescription": "desct",
+  "categoryId": "1",
+ 
+  "UserId": 1
+}
+###
+GET {{NaidisprojektAPi_HostAddress}}/user/listings/1
+accept:application/json
+
+###
+POST {{NaidisprojektAPi_HostAddress}}/user/listings/favorites/add
+Content-type: application/json
+accept:  application/json
+{
+  "UserId": "1",
+  "ListingId": "4"
+}
+
+###
+GET {{NaidisprojektAPi_HostAddress}}/user/listings/favorites/1
+accept: application/json
+
+###
+DELETE {{NaidisprojektAPi_HostAddress}}/user/listings/remove/4
+accept: application/json
+
+###
+DELETE {{NaidisprojektAPi_HostAddress}}/user/listings/favorites/remove/8
+accept: application/json
