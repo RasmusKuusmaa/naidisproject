@@ -1,37 +1,59 @@
 ﻿using naidisprojekt.Models;
 using naidisprojekt.Pages;
 using naidisprojekt.Service;
+using naidisprojekt.Viewmodels;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 
 namespace naidisprojekt.ViewModels
 {
-    public class ProfileViewModel : INotifyPropertyChanged
+    public class ProfileViewModel : BaseViewModel
     {
-        private string welcomeText;
+
+        public Command NavigateToMyListingsCommand { get; }
+        public Command NavigateToSettingsCommand { get; }
 
         public ProfileViewModel()
         {
             AddNewListingCommand = new Command(AddnewListing);
+            NavigateToMyListingsCommand = new Command(NavigateToMyListings);
+            NavigateToSettingsCommand = new Command(NavigateToSettings);
         }
 
-        public string WelcomeText
+        private async void NavigateToMyListings()
         {
-            get => welcomeText;
+            await Shell.Current.GoToAsync(nameof(MyListingsPage));
+        }
+
+        private async void NavigateToSettings()
+        {
+            await Shell.Current.GoToAsync(nameof(SettingsPage));
+        }
+
+        private string _userName;
+
+        public string UserName
+        {
+            get { return _userName; }
+            set { _userName = value; OnPropertyChanged(); }
+        }
+        private string _email;
+
+        public string Email
+        {
+            get { return _email; }
             set
             {
-                welcomeText = value;
+                _email = value;
                 OnPropertyChanged();
             }
         }
-        
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        
+
+
+
         public Command AddNewListingCommand { get; }
         private async void AddnewListing()
         {
@@ -39,7 +61,8 @@ namespace naidisprojekt.ViewModels
         }
         public async Task LoadUserAsync()
         {
-            welcomeText = UserSession.CurrentUser.Name;
+            UserName = UserSession.CurrentUser.Name;
+            Email = UserSession.CurrentUser.Email;
         }
     }
 }
