@@ -1,27 +1,55 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="naidisprojekt.Pages.ProfilePage"
-             Title="Profile"
              xmlns:vm="clr-namespace:naidisprojekt.ViewModels"
-             BackgroundColor="#f0f0f0">
+             x:Class="naidisprojekt.Pages.ProfilePage"
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="#F0F0F0">
 
     <ContentPage.BindingContext>
         <vm:ProfileViewModel/>
     </ContentPage.BindingContext>
 
-    <Grid Padding="10">
+    <Grid Padding="10" RowSpacing="20">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <VerticalStackLayout Grid.Row="0" Spacing="5">
+
+        <Grid HeightRequest="50" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Text="Profile"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   VerticalOptions="Center"
+                   Grid.Column="0"/>
+
+            <ImageButton Source="logoutlogo.png"
+             Command="{Binding LogoutCommand}"
+             Grid.Column="1"
+             VerticalOptions="Center"
+             BackgroundColor="Transparent"
+             WidthRequest="20"
+             HeightRequest="20"
+             Padding="0"
+             MinimumWidthRequest="20"
+             MinimumHeightRequest="20"/>
+        </Grid>
+
+        <VerticalStackLayout Spacing="5" Grid.Row="1">
             <Label Text="{Binding UserName}" FontSize="20" FontAttributes="Bold"/>
             <Label Text="{Binding Email}" FontSize="14" TextColor="Gray"/>
         </VerticalStackLayout>
 
-        <VerticalStackLayout Grid.Row="1" Spacing="20" Padding="0,20">
-            <Border BackgroundColor="White" StrokeShape="10">
+        <VerticalStackLayout Spacing="20" Grid.Row="2">
+
+            <Border BackgroundColor="White" StrokeShape="RoundRectangle 10">
                 <Grid Padding="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -37,7 +65,8 @@
                     </Grid.GestureRecognizers>
                 </Grid>
             </Border>
-                <Border BackgroundColor="White" StrokeShape="10">
+
+            <Border BackgroundColor="White" StrokeShape="RoundRectangle 10">
                 <Grid Padding="15">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
@@ -55,6 +84,13 @@
             </Border>
 
         </VerticalStackLayout>
-        <Button Grid.Row="2" Command="{Binding AddNewListingCommand}" Text="Add new listing"/>
+
+        <Button Text="Add new listing"
+                Command="{Binding AddNewListingCommand}"
+                BackgroundColor="Blue"
+                TextColor="White"
+                CornerRadius="10"
+                HeightRequest="50"
+                Grid.Row="3"/>
     </Grid>
 </ContentPage>

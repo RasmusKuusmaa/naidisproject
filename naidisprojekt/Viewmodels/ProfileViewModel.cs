@@ -19,6 +19,8 @@ namespace naidisprojekt.ViewModels
             AddNewListingCommand = new Command(AddnewListing);
             NavigateToMyListingsCommand = new Command(NavigateToMyListings);
             NavigateToSettingsCommand = new Command(NavigateToSettings);
+            LogoutCommand = new Command(Logout);
+
         }
 
         private async void NavigateToMyListings()
@@ -59,10 +61,22 @@ namespace naidisprojekt.ViewModels
         {
             await Shell.Current.GoToAsync(nameof(AddnewlistingPage));
         }
+        public Command LogoutCommand { get; }
+
         public async Task LoadUserAsync()
         {
-            UserName = UserSession.CurrentUser.Name;
+            UserName = UserSession.CurrentUser.UserName;
             Email = UserSession.CurrentUser.Email;
         }
+        private void Logout()
+        {
+            UserSession.CurrentUser = null;
+            Application.Current.MainPage = new NavigationPage(new SplashPage())
+            {
+                BarTextColor = Color.FromArgb("#4F63AC")
+            };
+        }
+
     }
+    
 }

@@ -18,9 +18,9 @@
                       Route="profile"
                       />
         <ShellContent Icon="profileiconnotselected.png"
-                      ContentTemplate="{DataTemplate Pages:ProfilePage}"
-                      
-                      />
+              ContentTemplate="{DataTemplate Pages:ProfilePage}"
+              Route="profile"/>
+
 
 
 
