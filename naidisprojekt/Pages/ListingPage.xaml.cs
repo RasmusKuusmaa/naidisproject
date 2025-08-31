@@ -1,4 +1,5 @@
 using naidisprojekt.Models;
+using naidisprojekt.Service;
 
 namespace naidisprojekt.Pages;
 
@@ -15,9 +16,19 @@ public partial class ListingPage : ContentPage
             BindingContext = listing;
         }
     }
-
+    private bool isFavorite = false;
     public ListingPage()
     {
         InitializeComponent();
+    }
+    ApiService apiservice = new ApiService();
+    private void FavoriteButton_Clicked(object sender, EventArgs e)
+    {
+        isFavorite = !isFavorite;
+        FavoriteButton.Source = isFavorite
+            ? "favoritetselected.png"
+            : "favoritesiconnotselected.png";
+
+        apiservice.AddListingToFavorites(UserSession.CurrentUser.UserId, Listing.ListingId);
     }
 }

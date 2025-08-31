@@ -20,7 +20,10 @@
                 <Label Text="{Binding Price, StringFormat='${0:F2}'}" FontSize="18" TextColor="DarkGreen"/>
                 <Label Text="{Binding ListingDescription}" FontSize="14" TextColor="Gray"/>
             </VerticalStackLayout>
-          
+            <HorizontalStackLayout Grid.Row="2" BackgroundColor="White" Padding="20">
+                <ImageButton x:Name="FavoriteButton" Clicked="FavoriteButton_Clicked" Source="favoritesiconnotselected.png" WidthRequest="50" HeightRequest="50" CornerRadius="10"/>
+                <Button Text="Contact Seller" WidthRequest="150" HeightRequest="50"/>
+            </HorizontalStackLayout>
         </Grid>
     </VerticalStackLayout>
 </ContentPage>

@@ -136,5 +136,64 @@ namespace naidisprojekt.Service
             }
         }
 
+        public async Task<bool> AddListingToFavorites(int userId, int listingId)
+        {
+            try
+            {
+
+                var request = new
+                {
+                    UserId = userId,
+                    ListingId = listingId
+                };
+                var content = new StringContent(JsonSerializer.Serialize(request), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("user/listings/favorites/add", content);
+                return response.IsSuccessStatusCode;
+            } catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+        
+        public async Task<List<Listing>> GetUserFavoriteListings(int userId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"user/listings/favorites/{userId}");
+                if (!response.IsSuccessStatusCode)
+                    return new List<Listing>();
+                var json = await response.Content.ReadAsStringAsync();
+                var categories = JsonSerializer.Deserialize<List<Listing>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                return categories ?? new List<Listing>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Listing>();
+            }
+        }
+
+        public async Task<List<Listing>> GetUserListings(int userId)
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync($"user/listings/{userId}");
+                if (!response.IsSuccessStatusCode)
+                    return new List<Listing>();
+                var json = await response.Content.ReadAsStringAsync();
+                var categories = JsonSerializer.Deserialize<List<Listing>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                return categories ?? new List<Listing>();
+            }
+            catch (Exception ex)
+            {
+                return new List<Listing>();
+            }
+        }
     }
 }
