@@ -41,6 +41,15 @@ namespace naidisprojekt.Viewmodels
                 }
             }
         }
+        private ObservableCollection<Listing> _listings;
+
+        public ObservableCollection<Listing> Listings
+        {
+            get { return _listings; }
+            set { _listings = value;
+                OnPropertyChanged();
+            }
+        }
 
         public ICommand SelectCategoryCommand { get; }
 
@@ -48,6 +57,7 @@ namespace naidisprojekt.Viewmodels
         {
             var categories = await _apiService.GetAllCategories();
             Categories = new ObservableCollection<Category>(categories);
+            Listings = new ObservableCollection<Listing>(await _apiService.GetAllListings());
         }
 
         private void OnCategorySelected(Category category)

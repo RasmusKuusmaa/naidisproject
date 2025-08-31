@@ -3,10 +3,19 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:controls="clr-namespace:naidisprojekt.Controls"
              xmlns:models="clr-namespace:naidisprojekt.Models"
+             xmlns:vm="clr-namespace:naidisprojekt.Viewmodels"
              x:Class="naidisprojekt.Pages.Homepage"
-
+             xmlns:converters="clr-namespace:naidisprojekt.Converters"
              Shell.NavBarIsVisible="False"
              x:Name="Page">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <converters:ByteToImageConverter x:Key="ByteToImageConverter"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.BindingContext>
+        <vm:HomePageViewModel/>
+    </ContentPage.BindingContext>
     <VerticalStackLayout Margin="20">
         <Grid ColumnDefinitions="Auto, *"
               VerticalOptions="Center"
@@ -72,7 +81,7 @@
         </CollectionView>
 
         <CollectionView Margin="0,20,0,0"
-                        ItemsSource="{Binding Products}">
+                        ItemsSource="{Binding Listings}">
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" 
                                  Span="2"
@@ -83,13 +92,12 @@
                 <DataTemplate>
                     <VerticalStackLayout>
                         <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BindingContext.SelectProductCommand, Source={x:Reference Name=Page}}"
-                                                  CommandParameter="{Binding .}" />
+                          
                         </VerticalStackLayout.GestureRecognizers>
-                        <Image Source="{Binding ImageSource}" 
+                        <Image Source="{Binding ListingImage, Converter={StaticResource ByteToImageConverter}}"
                                HeightRequest="280"
                                WidthRequest="157"/>
-                        <Label Padding="10,0" Text="{Binding Name}"/>
+                        <Label Padding="10,0" Text="{Binding ListingName}"/>
                         <Label Padding="10,0" Text="{Binding Price, StringFormat='${0:F2}'}"/>
                     </VerticalStackLayout>
                 </DataTemplate>

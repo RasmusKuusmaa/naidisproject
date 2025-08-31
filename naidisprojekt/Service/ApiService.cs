@@ -117,5 +117,24 @@ namespace naidisprojekt.Service
             }
         } 
 
+        public async Task<List<Listing>> GetAllListings()
+        {
+            try
+            {
+                var response = await _httpClient.GetAsync("user/listings");
+                if (!response.IsSuccessStatusCode)
+                    return new List<Listing>();
+                var json = await response.Content.ReadAsStringAsync();
+                var categories = JsonSerializer.Deserialize<List<Listing>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                return categories ?? new List<Listing>();
+            } catch (Exception ex)
+            {
+                return new List<Listing>();
+            }
+        }
+
     }
 }
