@@ -3,31 +3,145 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="naidisprojekt.Pages.AddnewlistingPage"
              xmlns:vm="clr-namespace:naidisprojekt.Viewmodels"
-             Title="Create a new listing">
+             Title="Create a new listing"
+             BackgroundColor="#F9FAFB">
     <ContentPage.BindingContext>
         <vm:AddNewListingPageViewmodel/>
     </ContentPage.BindingContext>
-    <VerticalStackLayout>
 
-        <Label Text="Upload photos"/>
-        <Button Text="Choose Image" Command="{Binding PickImageCommand}" />
+    <ScrollView>
+        <VerticalStackLayout Padding="16" Spacing="24">
+            <VerticalStackLayout Spacing="12">
+                <Label Text="Upload photos" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       TextColor="#2563EB"/>
 
-        <Image Source="{Binding PreviewImage}" 
-       HeightRequest="100" WidthRequest="100"
-       Aspect="AspectFill"/>
-        
-        <Label Text="Title"/>
-        <Entry Text="{Binding Name}" Placeholder="Listing Title"/>
+                <HorizontalStackLayout Spacing="12">
+                    <Frame BackgroundColor="White"
+                           BorderColor="#D1D5DB"
+                           HasShadow="False"
+                           CornerRadius="8"
+                           Padding="0"
+                           HeightRequest="96"
+                           WidthRequest="96">
+                        <Button Text="+" 
+                                Command="{Binding PickImageCommand}"
+                                BackgroundColor="Transparent"
+                                TextColor="#9CA3AF"
+                                FontSize="24"
+                                BorderWidth="2"
+                                BorderColor="#D1D5DB"
+                                CornerRadius="8"/>
+                    </Frame>
 
-        <Label Text="Category"/>
-        <Picker ItemsSource="{Binding Categories}"
-                    ItemDisplayBinding="{Binding CategoryName}"
-                SelectedItem="{Binding SelectedCategory}"
-                Title="Select the category"/>
-        <Label Text="Price"/>
-        <Entry Text="{Binding Price}" Placeholder="Price"/>
-        <Label Text="Description"/>
-        <Entry Text="{Binding Desctription}" Placeholder="Tell us more.." HeightRequest="50"/>
-        <Button Command="{Binding SubmitCommand}" Text="Submit"/>
-    </VerticalStackLayout>
+                    <Frame BackgroundColor="White"
+                           BorderColor="Transparent"
+                           HasShadow="False"
+                           CornerRadius="8"
+                           Padding="0"
+                           HeightRequest="96"
+                           WidthRequest="96"
+                           IsVisible="{Binding PreviewImage, Converter={StaticResource IsNotNullConverter}}">
+                        <Image Source="{Binding PreviewImage}" 
+                               Aspect="AspectFill"/>
+                    </Frame>
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Title" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       TextColor="#2563EB"/>
+                <Frame BackgroundColor="White"
+                       BorderColor="#D1D5DB"
+                       HasShadow="False"
+                       CornerRadius="8"
+                       Padding="0">
+                    <Entry Text="{Binding Name}" 
+                           Placeholder="Listing Title"
+                           PlaceholderColor="#9CA3AF"
+                           TextColor="#111827"
+                           FontSize="16"
+                           BackgroundColor="Transparent"
+                           Margin="12,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Category" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       TextColor="#2563EB"/>
+                <Frame BackgroundColor="White"
+                       BorderColor="#D1D5DB"
+                       HasShadow="False"
+                       CornerRadius="8"
+                       Padding="12">
+                    <Picker ItemsSource="{Binding Categories}"
+                            ItemDisplayBinding="{Binding CategoryName}"
+                            SelectedItem="{Binding SelectedCategory}"
+                            Title="Select the category"
+                            TitleColor="#9CA3AF"
+                            TextColor="#111827"
+                            FontSize="16"
+                            BackgroundColor="Transparent"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Price" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       TextColor="#2563EB"/>
+                <Frame BackgroundColor="White"
+                       BorderColor="#D1D5DB"
+                       HasShadow="False"
+                       CornerRadius="8"
+                       Padding="0">
+                    <Entry Text="{Binding Price}" 
+                           Placeholder="Enter price in USD"
+                           PlaceholderColor="#9CA3AF"
+                           TextColor="#111827"
+                           FontSize="16"
+                           Keyboard="Numeric"
+                           BackgroundColor="Transparent"
+                           Margin="12,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Spacing="8">
+                <Label Text="Description" 
+                       FontSize="16" 
+                       FontAttributes="Bold"
+                       TextColor="#2563EB"/>
+                <Frame BackgroundColor="White"
+                       BorderColor="#D1D5DB"
+                       HasShadow="False"
+                       CornerRadius="8"
+                       Padding="0">
+                    <Entry Text="{Binding Desctription}" 
+                           Placeholder="Tell us more..."
+                           PlaceholderColor="#9CA3AF"
+                           TextColor="#111827"
+                           FontSize="16"
+                           HeightRequest="100"
+                           BackgroundColor="Transparent"
+                           Margin="12,0"/>
+                </Frame>
+            </VerticalStackLayout>
+
+            <Button Command="{Binding SubmitCommand}" 
+                    Text="Submit"
+                    BackgroundColor="#4F46E5"
+                    TextColor="White"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    CornerRadius="8"
+                    HeightRequest="50"
+                    Margin="0,16,0,0"/>
+
+        </VerticalStackLayout>
+    </ScrollView>
 </ContentPage>
