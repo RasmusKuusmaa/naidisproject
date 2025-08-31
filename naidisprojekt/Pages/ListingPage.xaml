@@ -4,26 +4,102 @@
              x:Class="naidisprojekt.Pages.ListingPage"
              xmlns:converters="clr-namespace:naidisprojekt.Converters"
              Title="ListingPage"
-             >
+             BackgroundColor="#F3F4F6">
     <ContentPage.Resources>
         <ResourceDictionary>
             <converters:ByteToImageConverter x:Key="ByteToImageConverter"/>
         </ResourceDictionary>
     </ContentPage.Resources>
-    <VerticalStackLayout>
-        <Grid RowDefinitions="0.5*,0.4*, 0.1*">
-            <Image Grid.Row="0" Source="{Binding ListingImage, Converter={StaticResource ByteToImageConverter}}"
-               Aspect="AspectFill"/>
 
-            <VerticalStackLayout Grid.Row="1" BackgroundColor="White" Padding="20">
-                <Label Text="{Binding ListingName}" FontSize="22" FontAttributes="Bold"/>
-                <Label Text="{Binding Price, StringFormat='${0:F2}'}" FontSize="18" TextColor="DarkGreen"/>
-                <Label Text="{Binding ListingDescription}" FontSize="14" TextColor="Gray"/>
-            </VerticalStackLayout>
-            <HorizontalStackLayout Grid.Row="2" BackgroundColor="White" Padding="20">
-                <ImageButton x:Name="FavoriteButton" Clicked="FavoriteButton_Clicked" Source="favoritesiconnotselected.png" WidthRequest="50" HeightRequest="50" CornerRadius="10"/>
-                <Button Text="Contact Seller" WidthRequest="150" HeightRequest="50"/>
-            </HorizontalStackLayout>
-        </Grid>
-    </VerticalStackLayout>
+    <Grid RowDefinitions="0.6*,*">
+
+        <!-- Main Image Section -->
+        <Border Grid.Row="0"
+                BackgroundColor="White"
+                StrokeThickness="0">
+            <Image Source="{Binding ListingImage, Converter={StaticResource ByteToImageConverter}}"
+                   Aspect="AspectFill"/>
+        </Border>
+
+        <!-- Content Card Section -->
+        <Border Grid.Row="1"
+                BackgroundColor="White"
+                StrokeThickness="0"
+                Margin="0,-30,0,0"
+                Padding="24,30,24,24">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="20,20,0,0"/>
+            </Border.StrokeShape>
+
+            <Grid RowDefinitions="*,Auto">
+
+                <!-- Content Section -->
+                <VerticalStackLayout Grid.Row="0" Spacing="16">
+
+                    <!-- Title -->
+                    <Label Text="{Binding ListingName}" 
+                           FontSize="28" 
+                           FontAttributes="Bold"
+                           TextColor="#111827"
+                           LineBreakMode="WordWrap"/>
+
+                    <!-- Price -->
+                    <Label Text="{Binding Price, StringFormat='$ {0}'}" 
+                           FontSize="24" 
+                           FontAttributes="Bold"
+                           TextColor="#374151"/>
+
+                    <!-- Description -->
+                    <Label Text="{Binding ListingDescription}" 
+                           FontSize="16" 
+                           TextColor="#6B7280"
+                           LineBreakMode="WordWrap"
+                           Margin="0,8,0,0"/>
+
+                </VerticalStackLayout>
+
+                <!-- Action Buttons Section - Fixed at Bottom -->
+                <Grid Grid.Row="1" 
+                      ColumnDefinitions="Auto,*"
+                      ColumnSpacing="16"
+                      Margin="0,24,0,0">
+
+                    <!-- Favorite Button -->
+                    <Border Grid.Column="0"
+                            BackgroundColor="#F3F4F6"
+                            StrokeThickness="0"
+                            HeightRequest="56"
+                            WidthRequest="56">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <ImageButton x:Name="FavoriteButton" 
+                                     Clicked="FavoriteButton_Clicked" 
+                                     Source="favoritesiconnotselected.png" 
+                                     BackgroundColor="Transparent"
+                                     Aspect="AspectFit"/>
+                    </Border>
+
+                    <!-- Contact Seller Button -->
+                    <Border Grid.Column="1"
+                            BackgroundColor="#4F46E5"
+                            StrokeThickness="0"
+                            HeightRequest="56">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="12"/>
+                        </Border.StrokeShape>
+                        <Button Text="Contact Seller" 
+                                BackgroundColor="Transparent"
+                                TextColor="White"
+                                FontSize="16"
+                                FontAttributes="Bold"/>
+                    </Border>
+
+                </Grid>
+
+            </Grid>
+
+        </Border>
+
+    </Grid>
 </ContentPage>
