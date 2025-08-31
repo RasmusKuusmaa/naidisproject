@@ -1,3 +1,5 @@
+using naidisprojekt.Viewmodels;
+
 namespace naidisprojekt.Pages;
 
 public partial class FavoritesPage : ContentPage
@@ -6,4 +8,10 @@ public partial class FavoritesPage : ContentPage
 	{
 		InitializeComponent();
 	}
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is FavoritesViewModel vm)
+            await vm.RefreshData();
+    }
 }

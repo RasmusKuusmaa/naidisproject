@@ -13,7 +13,12 @@ public partial class Homepage : ContentPage
 		InitializeComponent();
 		BindingContext = new HomePageViewModel();
 	}
-
+    protected override async void OnAppearing()
+    {
+        base.OnAppearing();
+        if (BindingContext is HomePageViewModel vm)
+            await vm.RefreshData();
+    }
     private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
 

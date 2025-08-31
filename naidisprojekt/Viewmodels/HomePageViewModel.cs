@@ -97,6 +97,10 @@ namespace naidisprojekt.Viewmodels
             OpenListingCommand = new Command<Listing>(OnListingSelected);
 
         }
+        public async Task RefreshData()
+        {
+            await LoadData();
+        }
     }
 
 }

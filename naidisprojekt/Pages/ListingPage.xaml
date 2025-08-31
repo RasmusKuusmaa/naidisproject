@@ -11,9 +11,8 @@
         </ResourceDictionary>
     </ContentPage.Resources>
 
-    <Grid RowDefinitions="0.6*,*">
+    <Grid RowDefinitions="1.5*,*">
 
-        <!-- Main Image Section -->
         <Border Grid.Row="0"
                 BackgroundColor="White"
                 StrokeThickness="0">
@@ -21,7 +20,6 @@
                    Aspect="AspectFill"/>
         </Border>
 
-        <!-- Content Card Section -->
         <Border Grid.Row="1"
                 BackgroundColor="White"
                 StrokeThickness="0"
@@ -33,23 +31,19 @@
 
             <Grid RowDefinitions="*,Auto">
 
-                <!-- Content Section -->
                 <VerticalStackLayout Grid.Row="0" Spacing="16">
 
-                    <!-- Title -->
                     <Label Text="{Binding ListingName}" 
                            FontSize="28" 
                            FontAttributes="Bold"
                            TextColor="#111827"
                            LineBreakMode="WordWrap"/>
 
-                    <!-- Price -->
                     <Label Text="{Binding Price, StringFormat='$ {0}'}" 
                            FontSize="24" 
                            FontAttributes="Bold"
                            TextColor="#374151"/>
 
-                    <!-- Description -->
                     <Label Text="{Binding ListingDescription}" 
                            FontSize="16" 
                            TextColor="#6B7280"
@@ -58,13 +52,11 @@
 
                 </VerticalStackLayout>
 
-                <!-- Action Buttons Section - Fixed at Bottom -->
                 <Grid Grid.Row="1" 
                       ColumnDefinitions="Auto,*"
                       ColumnSpacing="16"
                       Margin="0,24,0,0">
 
-                    <!-- Favorite Button -->
                     <Border Grid.Column="0"
                             BackgroundColor="#F3F4F6"
                             StrokeThickness="0"
@@ -80,7 +72,6 @@
                                      Aspect="AspectFit"/>
                     </Border>
 
-                    <!-- Contact Seller Button -->
                     <Border Grid.Column="1"
                             BackgroundColor="#4F46E5"
                             StrokeThickness="0"

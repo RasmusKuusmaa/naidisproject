@@ -30,7 +30,10 @@ namespace naidisprojekt.Viewmodels
             RemoveCommand = new Command<Listing>(RemoveListing);
             _ = LoadListings();
         }
-
+        public async Task RefreshData()
+        {
+            await LoadListings();
+        }
         private async Task LoadListings()
         {
             Listings = new ObservableCollection<Listing>(
