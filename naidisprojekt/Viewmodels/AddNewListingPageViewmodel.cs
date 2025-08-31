@@ -67,9 +67,53 @@ namespace naidisprojekt.Viewmodels
                 OnPropertyChanged();
             }
         }
+        private ImageSource _previewImage;
+        public ImageSource PreviewImage
+        {
+            get => _previewImage;
+            set
+            {
+                _previewImage = value;
+                OnPropertyChanged();
+            }
+        }
+        private byte[] _imageBytes;
 
+        public byte[] ImageBytes
+        {
+            get { return _imageBytes; }
+            set { _imageBytes = value;
+                OnPropertyChanged();
+            }
+        }
+        public Command PickImageCommand { get; }
+
+        private async Task PickImage()
+        {
+            try
+            {
+                var file = await FilePicker.Default.PickAsync(new PickOptions
+                {
+                    PickerTitle = "Pick an image",
+                    FileTypes = FilePickerFileType.Images
+                });
+
+                if (file != null)
+                {
+                    using var stream = await file.OpenReadAsync();
+                    using var ms = new MemoryStream();
+                    await stream.CopyToAsync(ms);
+                    ImageBytes = ms.ToArray();
+                    PreviewImage = ImageSource.FromStream(() => new MemoryStream(ImageBytes));
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Error picking image: {ex.Message}");
+            }
+        }
         public Command SubmitCommand { get; }
-        private async void Submit()
+        private async Task Submit()
         {
             Listing listing = new Listing
             {
@@ -78,22 +122,20 @@ namespace naidisprojekt.Viewmodels
                 Price = Price,
                 ListingDescription = Desctription,
                 UserId = UserSession.CurrentUser.UserId,
-
+                ListingImage = ImageBytes
             };
-           var response = await _apiService.AddnewListing(listing);
-            if (response == true)
-            {
+
+            var response = await _apiService.AddnewListing(listing);
+            if (response)
                 await Shell.Current.DisplayAlert("Added", "Listing has been added", "OK");
-            }
             else
-            {
                 await Shell.Current.DisplayAlert("Failed", "Listing has not been added", "OK");
-            }
         }
         private readonly ApiService _apiService = new ApiService();
         public AddNewListingPageViewmodel()
         {
-            SubmitCommand = new Command(() => Submit());
+            SubmitCommand = new Command(async () => await Submit());
+            PickImageCommand = new Command(async () => await PickImage());
             _ = LoadAllCategories();
         }
         private async Task LoadAllCategories()

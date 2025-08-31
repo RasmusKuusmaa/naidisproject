@@ -8,6 +8,14 @@
         <vm:AddNewListingPageViewmodel/>
     </ContentPage.BindingContext>
     <VerticalStackLayout>
+
+        <Label Text="Upload photos"/>
+        <Button Text="Choose Image" Command="{Binding PickImageCommand}" />
+
+        <Image Source="{Binding PreviewImage}" 
+       HeightRequest="100" WidthRequest="100"
+       Aspect="AspectFill"/>
+        
         <Label Text="Title"/>
         <Entry Text="{Binding Name}" Placeholder="Listing Title"/>
 

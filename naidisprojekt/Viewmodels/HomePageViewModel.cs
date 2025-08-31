@@ -11,37 +11,23 @@ using System.Windows.Input;
 
 namespace naidisprojekt.Viewmodels
 {
-    public class HomePageViewModel : INotifyPropertyChanged
+    public class HomePageViewModel : BaseViewModel
     {
-        public ICommand SelectListingCommand { get; }
-        public ObservableCollection<Category> Categories { get; set; }
-        public ObservableCollection<Listing> Listings { get; set; }
-        private List<Listing> allListings;
-       //private readonly Dbservice dbservice = new Dbservice();
+        private ObservableCollection<Category> _categories;
 
-        public ICommand SelectCategoryCommand { get; }
+        public ObservableCollection<Category> Categories
+        {
+            get { return _categories; }
+            set { _categories = value; 
+            }
+        }
 
         public HomePageViewModel()
         {
             
         }
 
-        //private async void LoadListingsAsync()
-        //{
-        //    allListings = await dbservice.GetAllListingsAsync();
-        //    UpdateListingsForSelectedCategory();
-        //}
+     
 
-       
-        //private void UpdateSelection(Category selected)
-        //{
-        //    foreach (var category in Categories)
-        //        category.IsSelected = (category == selected);
-        //}
-
-        protected void OnPropertyChanged([CallerMemberName] string propertyName = null)
-            => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-
-        public event PropertyChangedEventHandler? PropertyChanged;
     }
 }
