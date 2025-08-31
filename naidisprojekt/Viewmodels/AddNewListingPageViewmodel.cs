@@ -117,7 +117,7 @@ namespace naidisprojekt.Viewmodels
         {
             Listing listing = new Listing
             {
-                CategoryId = SelectedCategory.CategoryID,
+                CategoryId = SelectedCategory.CategoryId,
                 ListingName = Name,
                 Price = Price,
                 ListingDescription = Desctription,

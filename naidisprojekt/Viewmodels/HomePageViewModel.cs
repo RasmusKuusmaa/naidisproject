@@ -1,33 +1,65 @@
 ﻿using naidisprojekt.Models;
-using naidisprojekt.Pages;
 using naidisprojekt.Service;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Windows.Input;
 
 namespace naidisprojekt.Viewmodels
 {
     public class HomePageViewModel : BaseViewModel
     {
-        private ObservableCollection<Category> _categories;
+        private readonly ApiService _apiService = new ApiService();
 
+        private ObservableCollection<Category> _categories;
         public ObservableCollection<Category> Categories
         {
             get { return _categories; }
-            set { _categories = value; 
+            set
+            {
+                _categories = value;
+                OnPropertyChanged();
             }
+        }
+
+        private Category _selectedCategory;
+        public Category SelectedCategory
+        {
+            get { return _selectedCategory; }
+            set
+            {
+                if (_selectedCategory != value)
+                {
+                    if (_selectedCategory != null)
+                        _selectedCategory.IsSelected = false;
+
+                    _selectedCategory = value;
+
+                    if (_selectedCategory != null)
+                        _selectedCategory.IsSelected = true;
+
+                    OnPropertyChanged();
+                    OnPropertyChanged(nameof(Categories));
+                }
+            }
+        }
+
+        public ICommand SelectCategoryCommand { get; }
+
+        private async Task LoadData()
+        {
+            var categories = await _apiService.GetAllCategories();
+            Categories = new ObservableCollection<Category>(categories);
+        }
+
+        private void OnCategorySelected(Category category)
+        {
+            SelectedCategory = category;
         }
 
         public HomePageViewModel()
         {
-            
+            SelectCategoryCommand = new Command<Category>(OnCategorySelected);
+            _ = LoadData();
         }
-
-     
-
     }
+
 }

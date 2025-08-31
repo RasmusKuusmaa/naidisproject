@@ -102,4 +102,9 @@
 	  </MauiXaml>
 	</ItemGroup>
 
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Maui.Graphics" Version="9.0.51" />
+	</ItemGroup>
+
+
 </Project>

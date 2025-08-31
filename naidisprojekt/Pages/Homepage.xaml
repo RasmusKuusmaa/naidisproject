@@ -1,89 +1,99 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:controls="clr-namespace:naidisprojekt.Controls"
+             xmlns:models="clr-namespace:naidisprojekt.Models"
              x:Class="naidisprojekt.Pages.Homepage"
+
              Shell.NavBarIsVisible="False"
-             x:Name="Page"
->
+             x:Name="Page">
     <VerticalStackLayout Margin="20">
         <Grid ColumnDefinitions="Auto, *"
-      VerticalOptions="Center"
+              VerticalOptions="Center"
               Margin="0,0,0,40">
-
             <Image Source="searchicon.png"
-           WidthRequest="16"
-           HeightRequest="16"
-           VerticalOptions="Center"
-           Margin="8,0"/>
-
+                   WidthRequest="16"
+                   HeightRequest="16"
+                   VerticalOptions="Center"
+                   Margin="8,0"/>
             <Label 
-            Text="Find All You Need"
-            FontSize="16"
-            FontAttributes="Bold"
-            Grid.Column="1"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+                Text="Find All You Need"
+                FontSize="16"
+                FontAttributes="Bold"
+                Grid.Column="1"
+                VerticalOptions="Center" 
+                HorizontalOptions="Center" />
         </Grid>
-        <CollectionView
-    ItemsSource="{Binding Categories}"
-    SelectedItem="{Binding SelectedCategory}"
-    SelectionMode="Single"
-            >
 
+        <CollectionView x:Name="CategoryCollectionView"
+                        ItemsSource="{Binding Categories}"
+                        SelectedItem="{Binding SelectedCategory}"
+                        SelectionMode="Single">
             <CollectionView.ItemsLayout>
                 <LinearItemsLayout Orientation="Horizontal" ItemSpacing="25" />
             </CollectionView.ItemsLayout>
-
             <CollectionView.ItemTemplate>
-                <DataTemplate>
-                    <Frame 
-            HeightRequest="44"
-            WidthRequest="44"
-            BackgroundColor="{Binding BackgroundColor}"
-            CornerRadius="8"
-            Padding="16">
-                        <Frame.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BindingContext.SelectCategoryCommand, Source={x:Reference Name=Page}}" CommandParameter="{Binding}" />
-                        </Frame.GestureRecognizers>
-                        <Image 
-                Source="{Binding imageSource}"
-                HeightRequest="44"
-                WidthRequest="44"
-                            />
-                    </Frame>
+                <DataTemplate x:DataType="models:Category">
+                    <Grid>
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference CategoryCollectionView}, Path=BindingContext.SelectCategoryCommand}"
+                                      CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
+
+                        <Border HeightRequest="44" 
+                    WidthRequest="44" 
+                    StrokeShape="RoundRectangle 8"
+                    BackgroundColor="{Binding IsSelected, Converter={StaticResource BoolToColorConverter}}"
+                    Stroke="{Binding IsSelected, Converter={StaticResource BoolToStrokeConverter}}"
+                    StrokeThickness="1">
+
+                            <controls:SvgView SvgSource="{Binding CategoryImage}"
+                                  HorizontalOptions="Fill"
+                                  VerticalOptions="Fill"
+                                  InputTransparent="True"
+                                  Padding="10">
+                                <controls:SvgView.Style>
+                                    <Style TargetType="controls:SvgView">
+                                        <Setter Property="FillColor" Value="Black" />
+                                        <Style.Triggers>
+                                            <DataTrigger TargetType="controls:SvgView"
+                                             Binding="{Binding IsSelected}"
+                                             Value="True">
+                                                <Setter Property="FillColor" Value="White" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </controls:SvgView.Style>
+                            </controls:SvgView>
+                        </Border>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
 
-        <CollectionView
-    Margin="0,20,0,0"
-    ItemsSource="{Binding Products}">
+        <CollectionView Margin="0,20,0,0"
+                        ItemsSource="{Binding Products}">
             <CollectionView.ItemsLayout>
-                <GridItemsLayout Orientation="Vertical" Span="2"
-                         HorizontalItemSpacing="20"
-                         VerticalItemSpacing="20"/>
+                <GridItemsLayout Orientation="Vertical" 
+                                 Span="2"
+                                 HorizontalItemSpacing="20"
+                                 VerticalItemSpacing="20"/>
             </CollectionView.ItemsLayout>
             <CollectionView.ItemTemplate>
                 <DataTemplate>
                     <VerticalStackLayout>
                         <VerticalStackLayout.GestureRecognizers>
-                            <TapGestureRecognizer
-                        Command="{Binding BindingContext.SelectProductCommand, Source={x:Reference Name=Page}}"
-                        CommandParameter="{Binding .}" />
+                            <TapGestureRecognizer Command="{Binding BindingContext.SelectProductCommand, Source={x:Reference Name=Page}}"
+                                                  CommandParameter="{Binding .}" />
                         </VerticalStackLayout.GestureRecognizers>
                         <Image Source="{Binding ImageSource}" 
-                       HeightRequest="280"
-                       WidthRequest="157"/>
+                               HeightRequest="280"
+                               WidthRequest="157"/>
                         <Label Padding="10,0" Text="{Binding Name}"/>
                         <Label Padding="10,0" Text="{Binding Price, StringFormat='${0:F2}'}"/>
                     </VerticalStackLayout>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-
-
-
-
-
     </VerticalStackLayout>
 </ContentPage>
