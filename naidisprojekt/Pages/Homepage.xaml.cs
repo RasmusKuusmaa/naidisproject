@@ -14,4 +14,8 @@ public partial class Homepage : ContentPage
 		BindingContext = new HomePageViewModel();
 	}
 
+    private void CollectionView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+
+    }
 }

@@ -78,10 +78,24 @@ namespace naidisprojekt.Viewmodels
             SelectedCategory = category;
         }
 
+        private async void OnListingSelected(Listing listing)
+        {
+            if (listing == null)
+                return;
+
+            await Shell.Current.GoToAsync(nameof(Pages.ListingPage), true, new Dictionary<string, object>
+        {
+            { "Listing", listing }
+        });
+        }
+        public ICommand OpenListingCommand { get; }
+
         public HomePageViewModel()
         {
             SelectCategoryCommand = new Command<Category>(OnCategorySelected);
             _ = LoadData();
+            OpenListingCommand = new Command<Listing>(OnListingSelected);
+
         }
     }
 
