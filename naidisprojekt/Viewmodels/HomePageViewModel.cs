@@ -38,6 +38,7 @@ namespace naidisprojekt.Viewmodels
 
                     OnPropertyChanged();
                     OnPropertyChanged(nameof(Categories));
+                    FilterListings();
                 }
             }
         }
@@ -50,14 +51,26 @@ namespace naidisprojekt.Viewmodels
                 OnPropertyChanged();
             }
         }
-
+        private ObservableCollection<Listing> _allListings;
+        private void FilterListings()
+        {
+            if (SelectedCategory == null)
+                return;
+            if (SelectedCategory.CategoryId == 3)
+                Listings = _allListings;
+            else
+            {
+                Listings = new ObservableCollection<Listing>( _allListings.Where(l => l.CategoryId == SelectedCategory.CategoryId));
+            }
+        }
         public ICommand SelectCategoryCommand { get; }
 
         private async Task LoadData()
         {
             var categories = await _apiService.GetAllCategories();
             Categories = new ObservableCollection<Category>(categories);
-            Listings = new ObservableCollection<Listing>(await _apiService.GetAllListings());
+            _allListings = new ObservableCollection<Listing>(await _apiService.GetAllListings());
+            Listings = _allListings;
         }
 
         private void OnCategorySelected(Category category)
