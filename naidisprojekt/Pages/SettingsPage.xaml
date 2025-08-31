@@ -3,10 +3,73 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="naidisprojekt.Pages.SettingsPage"
              Title="SettingsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to setingspage"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+    <VerticalStackLayout Spacing="15" Padding="0,0,0,20">
+        <Grid Padding="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Text="Personal Information" VerticalOptions="Center" Grid.Column="0"/>
+            <Image Source="edit2.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Grid.Column="1"/>
+        </Grid>
+
+        <Border BackgroundColor="White" StrokeShape="RoundRectangle 10" Margin="15,0">
+            <Grid Padding="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout Grid.Column="0" Spacing="3">
+                    <Label Text="Name" FontSize="12" TextColor="Gray"/>
+                    <Label x:Name="Nametxt" FontSize="18" TextColor="Blue" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        <Border BackgroundColor="White" StrokeShape="RoundRectangle 10" Margin="15,0">
+            <Grid Padding="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <VerticalStackLayout Grid.Column="0" Spacing="3">
+                    <Label Text="Email" FontSize="12" TextColor="Gray"/>
+                    <Label x:Name="Emailtxt" FontSize="18" TextColor="Blue" FontAttributes="Bold"/>
+                </VerticalStackLayout>
+            </Grid>
+        </Border>
+
+        <Label Text="Help Center" Padding="15,30,0,10"/>
+
+        <Border BackgroundColor="White" StrokeShape="RoundRectangle 10" Margin="15,0">
+            <Grid Padding="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="FAQ" FontSize="18" TextColor="Blue" FontAttributes="Bold" Grid.Column="0"/>
+                <Image Source="arrow.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Grid.Column="1"/>
+            </Grid>
+        </Border>
+
+        <Border BackgroundColor="White" StrokeShape="RoundRectangle 10" Margin="15,0">
+            <Grid Padding="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Contact Us" FontSize="18" TextColor="Blue" FontAttributes="Bold" Grid.Column="0"/>
+                <Image Source="arrow.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Grid.Column="1"/>
+            </Grid>
+        </Border>
+
+        <Border BackgroundColor="White" StrokeShape="RoundRectangle 10" Margin="15,0">
+            <Grid Padding="15">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Privacy &amp; Terms" FontSize="18" TextColor="Blue" FontAttributes="Bold" Grid.Column="0"/>
+                <Image Source="arrow.png" WidthRequest="20" HeightRequest="20" VerticalOptions="Center" Grid.Column="1"/>
+            </Grid>
+        </Border>
     </VerticalStackLayout>
 </ContentPage>
