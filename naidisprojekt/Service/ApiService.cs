@@ -1,12 +1,8 @@
-﻿
-using naidisprojekt.Models;
-using System;
-using System.Collections.Generic;
+﻿using naidisprojekt.Models;
 using System.Diagnostics;
-using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace naidisprojekt.Service
 {
@@ -68,5 +64,58 @@ namespace naidisprojekt.Service
                 return false;
             }
         }
+
+        public async Task<bool> AddnewListing(Listing listing)
+        {
+            Debug.WriteLine("try to add new listing");
+            try
+            {
+                var requestData = new
+                {
+                    Price = listing.Price,
+                    ListingName = listing.ListingName,
+                    ListingDescription = listing.ListingDescription,
+                    CategoryId = listing.CategoryId,
+                    ListingImage = listing.ListingImage,
+                    UserId = UserSession.CurrentUser.UserId
+                };
+                var content = new StringContent(JsonSerializer.Serialize(requestData), Encoding.UTF8, "application/json");
+                var response = await _httpClient.PostAsync("user/listings/new", content);
+                Debug.WriteLine("new listing false");
+
+                return response.IsSuccessStatusCode;
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine("failed to add new listing");
+
+                Debug.WriteLine(ex.Message);
+                return false;
+            }
+        }
+
+        public async Task<List<Category>> GetAllCategories()
+        {
+            Debug.WriteLine("started getting all categories");
+            try
+            {
+                var response = await _httpClient.GetAsync("user/categories");
+                if (!response.IsSuccessStatusCode)
+                    return new List<Category>();
+                var json = await response.Content.ReadAsStringAsync();
+                var categories = JsonSerializer.Deserialize<List<Category>>(json, new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+                Debug.WriteLine(categories[0].CategoryName);
+                return categories ?? new List<Category>();
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                return new List<Category>();
+            }
+        } 
+
     }
 }

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="naidisprojekt.Pages.AddnewlistingPage"
+             xmlns:vm="clr-namespace:naidisprojekt.Viewmodels"
+             Title="Create a new listing">
+    <ContentPage.BindingContext>
+        <vm:AddNewListingPageViewmodel/>
+    </ContentPage.BindingContext>
+    <VerticalStackLayout>
+        <Label Text="Title"/>
+        <Entry Text="{Binding Name}" Placeholder="Listing Title"/>
+
+        <Label Text="Category"/>
+        <Picker ItemsSource="{Binding Categories}"
+                    ItemDisplayBinding="{Binding CategoryName}"
+                SelectedItem="{Binding SelectedCategory}"
+                Title="Select the category"/>
+        <Label Text="Price"/>
+        <Entry Text="{Binding Price}" Placeholder="Price"/>
+        <Label Text="Description"/>
+        <Entry Text="{Binding Desctription}" Placeholder="Tell us more.." HeightRequest="50"/>
+        <Button Command="{Binding SubmitCommand}" Text="Submit"/>
+    </VerticalStackLayout>
+</ContentPage>

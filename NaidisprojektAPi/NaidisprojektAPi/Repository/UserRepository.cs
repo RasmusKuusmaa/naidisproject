@@ -126,7 +126,7 @@ namespace NaidisprojektAPi.Repository
                             {
                                 CategoryId = reader.GetInt32(0),
                                 CategoryName = reader.GetString(1),
-                                CategoryImage = reader.IsDBNull(2) ? null : reader.GetFieldValue<byte[]>(2)
+                                CategoryImage = reader.GetString(2)
                             });
                         }
                     }

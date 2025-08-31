@@ -28,7 +28,6 @@ namespace naidisprojekt
 
 
             });
-            //UserSession.Instance.SetUserId(1);
             //return new Window(new AppShell());
         }
 

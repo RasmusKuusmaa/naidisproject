@@ -1,4 +1,5 @@
 ﻿using naidisprojekt.Models;
+using naidisprojekt.Pages;
 using naidisprojekt.Service;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
@@ -9,6 +10,12 @@ namespace naidisprojekt.ViewModels
     public class ProfileViewModel : INotifyPropertyChanged
     {
         private string welcomeText;
+
+        public ProfileViewModel()
+        {
+            AddNewListingCommand = new Command(AddnewListing);
+        }
+
         public string WelcomeText
         {
             get => welcomeText;
@@ -18,25 +25,21 @@ namespace naidisprojekt.ViewModels
                 OnPropertyChanged();
             }
         }
+        
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null)
             => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
 
-        //public async Task LoadUserAsync()
-        //{
-        //    int? userId = UserSession.Instance.UserId;
-
-        //    if (userId.HasValue)
-        //    {
-        //        Dbservice db = new Dbservice();
-        //        var user = await db.GetUserByIdAsync(userId.Value);
-        //        WelcomeText = $"Welcome {user.Name}";
-        //    }
-        //    else
-        //    {
-        //        WelcomeText = "Welcome guest";
-        //    }
-        //}
+        
+        public Command AddNewListingCommand { get; }
+        private async void AddnewListing()
+        {
+            await Shell.Current.GoToAsync(nameof(AddnewlistingPage));
+        }
+        public async Task LoadUserAsync()
+        {
+            welcomeText = UserSession.CurrentUser.Name;
+        }
     }
 }
